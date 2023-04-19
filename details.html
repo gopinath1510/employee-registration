@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Details</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h1>Employee details</h1>
+    <table>
+        <thead>
+            <tr>
+                <th>Job title</th>
+                <th>Name</th>
+                <th>Mail id</th>
+                <th>Phone number</th>
+                <th>gender</th>
+                <th>Qualification</th>
+                <th>past experience</th>
+                <th>Date of Joining </th>
+                <th>current experience</th>
+            </tr>
+        </thead>
+        <tbody id="tablebody"></tbody>
+</body>
+<script>
+    function addrow(data){
+        let row=document.createElement('tr')
+        row.innerHTML=`
+        <td>${data.jobtitle}</td>
+        <td>${data.empname}</td>
+        <td>${data.mail}</td>
+        <td>${data.number}</td>
+        <td>${data.gender}</td>
+        <td>${data.qualification}</td>
+        <td>${data.pastexp}</td>
+        <td>${data.joindate}</td>
+        <td>${2023-year(joindate)}</td>
+        `
+        return row
+    }
+    async function refresh(){
+        let table=document.getElementById("tablebody")
+        table.innerHTML=" "
+        let user=await fetch("https://localhost:3000/details");
+        let data=user.json()
+        data.forEach(d=>{
+            let row=addrow(d)
+            table.appendChild(row)
+
+
+        })
+    }
+</script>
+</html>

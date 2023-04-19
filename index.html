@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Employee registration</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h1>Register employee</h1>
+    <form id="emp-form">
+        <label for="jobtitile">job title</label>
+        <input type="text" name="jobtitile" required>
+        <label for="empname">Name</label>
+        <input type="text" name="empname" required>
+        <label for="mail">Mail Id</label>
+        <input type="email" name="mail" required>
+        <label for="number">Phone number</label>
+        <input type="number" name="number" required>
+        <label for="gender">Gender</label>
+        <input type="text" name="gender" required>
+        <label for="qualification">Qualification</label>
+        <input type="text" name="qualification" required>
+        <label for="pastexp">Past experience</label>
+        <input type="number" name="pastexp" required>
+        <label for="joindate">current joining date</label>
+        <input type="date" name="joindate" required>
+        <button type="submit" name="submit">submit</button>
+        <button onclick="show()">Details</button>
+    </form>
+
+    
+</body>
+<script>
+     function show(){
+        window.location.href="details.html"
+     }
+     let form=document.getElementById("emp-form");
+     form.addEventListener("submit",async(e)=>{
+        e.preventDefault();
+        try{
+            let respone=fetch("https://localhost:3000/add",{
+                method:"POST",
+                headers:{
+                    "Content-Type":"application/json"
+                },
+                body:JSON.stringify(Object.fromEntries(new FormData(form)))
+            })
+            if(respone.ok){
+                alert("employee added")
+                
+            }
+            else{
+                alert("error adding employee")
+            }
+        }
+        catch(err){
+            console.log(err)
+        }
+     })
+</script>
+</html>
